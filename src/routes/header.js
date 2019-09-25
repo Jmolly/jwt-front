@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 
 function Header({ toggleLogOut, isLoggedIn }) {
 
@@ -14,9 +13,9 @@ function Header({ toggleLogOut, isLoggedIn }) {
     <nav>
       <ul>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/register'>Register</Link></li>
-        {isLoggedIn && <li><a><button onClick={handleLogOut}>Log Out</button></a></li>}
+        {!isLoggedIn && <li><Link to='/login'>Login</Link></li>}
+        {!isLoggedIn && <li><Link to='/register'>Register</Link></li>}
+        {isLoggedIn && <li><button onClick={handleLogOut}>Log Out</button></li>}
       </ul>
     </nav>
   </header>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Register() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
   const handleSubmit = (e) => {
   
@@ -21,8 +23,12 @@ function Register() {
         'Content-Type': 'application/json'
       }
     }).then(res => res.json())
-    .then(response => console.log('Успех:', JSON.stringify(response)))
-    .catch(error => console.error('Ошибка:', error));
+    .then(response => {
+      console.log('Success:', JSON.stringify(response));
+      setRedirectToReferrer(true);
+    }
+    )
+    .catch(error => console.error('Error:', error));
 
   }
 
@@ -32,6 +38,12 @@ function Register() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  }  
+  
+  if (redirectToReferrer) {
+    return (
+      <Redirect to="/login"/>
+    )
   }
 
   return (
