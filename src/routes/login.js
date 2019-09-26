@@ -7,7 +7,6 @@ function Login({ toggleLogIn }) {
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 
   const handleSubmit = (e) => {
-  
     e.preventDefault();
 
     const url = "http://localhost:3000/api/v1/login"
@@ -27,6 +26,7 @@ function Login({ toggleLogIn }) {
     .then(response => {
         if (response.token) {
           localStorage.setItem('access_token', response.token);
+          console.log(response);
           toggleLogIn();
           setRedirectToReferrer(true);
         }
@@ -36,14 +36,11 @@ function Login({ toggleLogIn }) {
   }
 
   const handleLoginChange = (e) => {
-    setLogin(e.target.value);
-    console.log(login);
+    setLogin(e.target.value)
   }
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
-    console.log(password);
-
   }
 
   if (redirectToReferrer) {
